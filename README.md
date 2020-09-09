@@ -10,11 +10,11 @@ Inspired by [Countdown](https://github.com/soffes/Countdown)
 Visual Studio and .NET Framework 4.7.2+
 
 ## Installation
-*Releases will follow in the feature.*
+*Releases will follow in the future.*
 
 For now you can build the project from source, rename the created executable
 from PointInTime.`exe` to PointInTime.`scr`. It is now a Windows screensaver file.
 
 Right-click the screensaver file and click `Install`, this will open the
 Windows screensaver settings, where you can go into the settings of the screensaver
-to setup date and time.
+to setup the date and time.
