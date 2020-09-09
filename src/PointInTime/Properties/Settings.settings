@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PointInTime.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefinedDate" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">2030-01-01</Value>
+    </Setting>
+    <Setting Name="DefinedTime" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
