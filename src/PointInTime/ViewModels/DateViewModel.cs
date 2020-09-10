@@ -1,10 +1,10 @@
-﻿using Prism.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PointInTime.Handlers;
 
 namespace PointInTime.ViewModels
 {
@@ -37,7 +37,7 @@ namespace PointInTime.ViewModels
         public bool Running
         {
             get => running;
-            private set => UpdateField(ref running, value, OnRunningChanged);
+            private set => UpdateField(ref running, value);
         }
 
         public ICommand StartCountdownCommand 
@@ -92,15 +92,9 @@ namespace PointInTime.ViewModels
             Running = false;
         }
 
-        private void OnRunningChanged(bool obj)
-        {
-            _startCountdownCommand.RaiseCanExecuteChanged();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void UpdateField<T>(ref T field, T newValue,
-            Action<T> onChangedCallback = null,
             [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, newValue))
@@ -109,9 +103,7 @@ namespace PointInTime.ViewModels
             }
 
             T oldValue = field;
-
             field = newValue;
-            onChangedCallback?.Invoke(oldValue);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
