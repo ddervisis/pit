@@ -31,5 +31,24 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
-    - name: List build directory
-      run: ls $Env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1\
+    - name: Set build directory as environment variable
+      run: $env:BuildDir = "$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
+
+    - name: Create new directory for all required files and set is as environment variable
+      run: |
+        md "$env:BuildDir\dist"
+        $env:Dist = "$env:BuildDir\dist"
+
+    - name: Replace executable with screensaver extension
+      run: Rename-Item -Path "$env:BuildDir\PointInTime.exe" -NewName "PointInTime.scr"
+    
+    - name: Copy required files into a separate directory
+      run: |
+        Copy-Item -Path "$env:BuildDir\Microsoft.Xaml.Behaviors.dll" -Destination "$env:Dist"
+        Copy-Item -Path "$env:BuildDir\PointInTime.dll" -Destination "$env:Dist"
+        Copy-Item -Path "$env:BuildDir\PointInTime.runtimeconfig.json" -Destination "$env:Dist"
+        Copy-Item -Path "$env:BuildDir\PointInTime.scr" -Destination "$env:Dist"
+        Copy-Item -Path "$env:BuildDir\Xceed.Wpf.Toolkit.dll" -Destination "$env:Dist"
+        
+    - name: List dist directory
+      run: ls $env:Dist
