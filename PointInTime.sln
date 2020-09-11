@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointInTime", "src\PointInTime\PointInTime.csproj", "{C2EC585A-DB93-4E21-813A-A1747F0A3290}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointInTime.App", "src\PointInTime.App\PointInTime.App.csproj", "{D775A8B9-A2DA-42B5-8DC9-B8F6C8E641F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C2EC585A-DB93-4E21-813A-A1747F0A3290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2EC585A-DB93-4E21-813A-A1747F0A3290}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2EC585A-DB93-4E21-813A-A1747F0A3290}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2EC585A-DB93-4E21-813A-A1747F0A3290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D775A8B9-A2DA-42B5-8DC9-B8F6C8E641F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D775A8B9-A2DA-42B5-8DC9-B8F6C8E641F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D775A8B9-A2DA-42B5-8DC9-B8F6C8E641F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D775A8B9-A2DA-42B5-8DC9-B8F6C8E641F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E55543A-CF9C-4810-A8E7-5BD1D1DAA070}
+		SolutionGuid = {86D30EF7-7DFD-40B5-A9F0-BE7AB26B626A}
 	EndGlobalSection
 EndGlobal

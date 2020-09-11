@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PointInTime.Handlers;
+using PointInTime.App.Helpers;
 
-namespace PointInTime.ViewModels
+namespace PointInTime.App.ViewModels
 {
-    public class DateViewModel : INotifyPropertyChanged
+    public class CountdownViewModel : INotifyPropertyChanged
     {
         private DateTime endTime;
         private TimeSpan remainingTime;
@@ -45,7 +45,7 @@ namespace PointInTime.ViewModels
             get => _startCountdownCommand;
         }
 
-        public DateViewModel()
+        public CountdownViewModel()
         {
             endTime = Properties.Settings.Default.DefinedDate + Properties.Settings.Default.DefinedTime;
             _startCountdownCommand = new DelegateCommand(StartCounter, () => !Running);

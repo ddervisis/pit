@@ -1,24 +1,24 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace PointInTime.Views
+namespace PointInTime.App.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Blackout.xaml
     /// </summary>
-    public partial class ScreenSaver : Window
+    public partial class Blackout : Window
     {
-        public ScreenSaver()
+        public Blackout()
         {
             InitializeComponent();
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             Application.Current.Shutdown();
         }

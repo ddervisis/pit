@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PointInTime.Handlers
+namespace PointInTime.App.Helpers
 {
     public class DelegateCommand : ICommand
     {

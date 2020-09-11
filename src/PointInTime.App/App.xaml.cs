@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using System.Windows.Forms;
 using Application = System.Windows.Application;
-using PointInTime.Views;
+using PointInTime.App.Views;
+using System.Windows.Forms;
 
-namespace PointInTime
+namespace PointInTime.App
 {
     /// <summary>
     /// Interaction logic for App.xaml

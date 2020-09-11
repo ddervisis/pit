@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PointInTime.Properties {
+namespace PointInTime.App.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

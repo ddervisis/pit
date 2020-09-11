@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PointInTime.Views
+namespace PointInTime.App.Views
 {
     /// <summary>
     /// Interaction logic for Settings.xaml
