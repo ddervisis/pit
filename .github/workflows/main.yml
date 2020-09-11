@@ -32,26 +32,29 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Set build directory as variable
-      run: $BUILD_DIR = Join-Path $env:GITHUB_WORKSPACE "src\PointInTime.App\bin\Release\netcoreapp3.1"
+      run: $env:BUILD_DIR = "$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
     
     - name: List build directory
-      run: ls $BUILD_DIR
+      run: ls $env:BUILD_DIR
+    
+    - name: List all env vars (debug)
+      run: Get-ChildItem "env:"
 
     - name: Create new directory for all required files and set it as environment variable
       run: |
-        md "$BUILD_DIR\dist"
-        $DIST_DIR = "$BUILD_DIR\dist"
+        md "$env:BUILD_DIR\dist"
+        $env:DIST_DIR = "$env:BUILD_DIR\dist"
 
     - name: Replace executable with screensaver extension
-      run: Rename-Item -Path "$BUILD_DIR\PointInTime.exe" -NewName "PointInTime.scr"
+      run: Rename-Item -Path "$env:BUILD_DIR\PointInTime.exe" -NewName "PointInTime.scr"
     
     - name: Copy required files into a separate directory
       run: |
-        Copy-Item -Path "$BUILD_DIR\Microsoft.Xaml.Behaviors.dll" -Destination "$DIST_DIR"
-        Copy-Item -Path "$BUILD_DIR\PointInTime.dll" -Destination "$DIST_DIR"
-        Copy-Item -Path "$BUILD_DIR\PointInTime.runtimeconfig.json" -Destination "$DIST_DIR"
-        Copy-Item -Path "$BUILD_DIR\PointInTime.scr" -Destination "$DIST_DIR"
-        Copy-Item -Path "$BUILD_DIR\Xceed.Wpf.Toolkit.dll" -Destination "$DIST_DIR"
+        Copy-Item -Path "$env:BUILD_DIR\Microsoft.Xaml.Behaviors.dll" -Destination "$env:DIST_DIR"
+        Copy-Item -Path "$env:BUILD_DIR\PointInTime.dll" -Destination "$env:DIST_DIR"
+        Copy-Item -Path "$env:BUILD_DIR\PointInTime.runtimeconfig.json" -Destination "$env:DIST_DIR"
+        Copy-Item -Path "$env:BUILD_DIR\PointInTime.scr" -Destination "$env:DIST_DIR"
+        Copy-Item -Path "$env:BUILD_DIR\Xceed.Wpf.Toolkit.dll" -Destination "$env:DIST_DIR"
         
     - name: List dist directory
-      run: ls $DIST_DIR
+      run: ls $env:DIST_DIR
