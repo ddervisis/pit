@@ -1,61 +1,31 @@
-name: .NET Core
+name: Build project
 
 on:
   push:
-    branches: 
-    - main
+    branches:
+      - main
   pull_request:
-    branches: 
-    - main
+    branches:
+      - main
 
 jobs:
   build:
-
     runs-on: windows-2019
     strategy:
       matrix:
         configuration: [Release]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-      
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
 
-    - name: Set build directory as variable
-#       run: $env:BUILD_DIR = "$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
-      run: echo "::set-env name=BUILD_DIR::$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
-    
-    - name: List build directory
-      run: ls $env:BUILD_DIR
-    
-    - name: List all env vars (debug)
-      run: Get-ChildItem "env:"
+      - name: Install dependencies
+        run: dotnet restore
 
-    - name: Create new directory for all required files and set it as environment variable
-      run: |
-        md "$env:BUILD_DIR\dist"
-        echo "::set-env name=DIST_DIR::$env:BUILD_DIR\dist"
-
-    - name: Replace executable with screensaver extension
-      run: Rename-Item -Path "$env:BUILD_DIR\PointInTime.exe" -NewName "PointInTime.scr"
-    
-    - name: Copy required files into a separate directory
-      run: |
-        Copy-Item -Path "$env:BUILD_DIR\Microsoft.Xaml.Behaviors.dll" -Destination "$env:DIST_DIR"
-        Copy-Item -Path "$env:BUILD_DIR\PointInTime.dll" -Destination "$env:DIST_DIR"
-        Copy-Item -Path "$env:BUILD_DIR\PointInTime.runtimeconfig.json" -Destination "$env:DIST_DIR"
-        Copy-Item -Path "$env:BUILD_DIR\PointInTime.scr" -Destination "$env:DIST_DIR"
-        Copy-Item -Path "$env:BUILD_DIR\Xceed.Wpf.Toolkit.dll" -Destination "$env:DIST_DIR"
-        
-    - name: List dist directory
-      run: ls $env:DIST_DIR
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
