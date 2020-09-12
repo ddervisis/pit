@@ -1,0 +1,72 @@
+name: Release project
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Set build directory as variable
+        run: echo "::set-env name=BUILD_DIR::$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
+
+      - name: Create new directory for all required files and set it as environment variable
+        run: |
+          md "$env:BUILD_DIR\dist"
+          echo "::set-env name=DIST_DIR::$env:BUILD_DIR\dist"
+
+      - name: Replace executable with screensaver extension
+        run: Rename-Item -Path "$env:BUILD_DIR\PointInTime.exe" -NewName "PointInTime.scr"
+
+      - name: Copy required files into a separate directory
+        run: |
+          Copy-Item -Path "$env:BUILD_DIR\Microsoft.Xaml.Behaviors.dll" -Destination "$env:DIST_DIR"
+          Copy-Item -Path "$env:BUILD_DIR\PointInTime.dll" -Destination "$env:DIST_DIR"
+          Copy-Item -Path "$env:BUILD_DIR\PointInTime.runtimeconfig.json" -Destination "$env:DIST_DIR"
+          Copy-Item -Path "$env:BUILD_DIR\PointInTime.scr" -Destination "$env:DIST_DIR"
+          Copy-Item -Path "$env:BUILD_DIR\Xceed.Wpf.Toolkit.dll" -Destination "$env:DIST_DIR"
+
+      - name: Create archive of all required files
+        run: Compress-Archive -Path "$env:DIST_DIR\*" -DestinationPath "$env:GITHUB_WORKSPACE\PointInTime.zip"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "$env:GITHUB_WORKSPACE\PointInTime.zip"
+          asset_name: PointInTime.zip
+          asset_content_type: application/zip
