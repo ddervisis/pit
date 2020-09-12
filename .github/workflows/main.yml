@@ -11,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: windows-2019
     strategy:
       matrix:
         configuration: [Release]
@@ -32,7 +32,8 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Set build directory as variable
-      run: $env:BUILD_DIR = "$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
+#       run: $env:BUILD_DIR = "$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
+      run: echo "::set-env name=BUILD_DIR::$env:GITHUB_WORKSPACE\src\PointInTime.App\bin\Release\netcoreapp3.1"
     
     - name: List build directory
       run: ls $env:BUILD_DIR
@@ -43,7 +44,7 @@ jobs:
     - name: Create new directory for all required files and set it as environment variable
       run: |
         md "$env:BUILD_DIR\dist"
-        $env:DIST_DIR = "$env:BUILD_DIR\dist"
+        echo "::set-env name=DIST_DIR::$env:BUILD_DIR\dist"
 
     - name: Replace executable with screensaver extension
       run: Rename-Item -Path "$env:BUILD_DIR\PointInTime.exe" -NewName "PointInTime.scr"
